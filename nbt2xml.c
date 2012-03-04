@@ -70,7 +70,7 @@ int readtag(int depth, int listtag)
 {
 	int tag;
 	int len;
-	int j;
+	int listtag;
 	char *namebuf;
 	namebuf = NULL;
 	
@@ -101,10 +101,7 @@ int readtag(int depth, int listtag)
 	}
 	
 	if (tag) // only do indenting if it's not a compound end tag
-	{
-		j = depth;
-		while (j--) putchar(' ');
-	}
+		printindent(depth);
 	
 	switch(tag)
 	{
@@ -212,12 +209,11 @@ int readtag(int depth, int listtag)
 			else
 				printf("<list>\n");
 			
-			j = readbyte();
+			listtag = readbyte();
 			len = readint();
-			while(len--) readtag(depth+1,j);
+			while(len--) readtag(depth+1,listtag);
 			
-			j = depth;
-			while (j--) putchar(' ');
+			printindent(depth);
 			printf("</list>\n");
 			break;
 		}
@@ -230,8 +226,7 @@ int readtag(int depth, int listtag)
 			
 			while(readtag(depth+1, 0) != 0) { }
 			
-			j = depth;
-			while (j--) putchar(' ');
+			printindent(depth);
 			printf("</compound>\n");
 			break;
 		}
@@ -247,3 +242,4 @@ int main(void)
 	
 	return(0);
 }
+
