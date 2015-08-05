@@ -165,7 +165,7 @@ int readtag(int depth, int listtag)
 			if (strlen(namebuf))
 				printf("<value name=\"%s\" type=\"bytearray\"><![CDATA[", namebuf);
 			else
-				printf("<value type=\"float\" type=\"bytearray\"><![CDATA[");
+				printf("<value type=\"bytearray\"><![CDATA[");
 			
 			len = readint();
 			while(len--) putchar(getchar());
